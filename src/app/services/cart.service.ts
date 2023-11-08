@@ -18,7 +18,7 @@ export class CartService {
 
   constructor() { 
     // read data from storage
-    let data = JSON.parse(this.storage.getItem('carItems')!);
+    let data = JSON.parse(this.storage.getItem('cartItems')!);
     
     if(data!=null){
       this.cartItems = data;
@@ -73,7 +73,7 @@ export class CartService {
   }
 
   persistCartItems(){
-    this.storage.setItem('cartItems',JSON.stringify(this.cartItems));
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
     console.log('Contents of cat');
