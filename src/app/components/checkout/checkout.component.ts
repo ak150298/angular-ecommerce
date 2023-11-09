@@ -33,6 +33,8 @@ export class CheckoutComponent implements OnInit {
 
   shippingAddressStates: State[] = [];
   billingAddressStates: State[] = [];
+  
+  storage: Storage = sessionStorage;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -45,13 +47,16 @@ export class CheckoutComponent implements OnInit {
    
     this.reviewCartDetails();
 
+    // read the user's email address from browser session storage
+    const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
+
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('',
         [Validators.required,Validators.minLength(2),Luv2ShopValidators.notOnlyWhiteSpace]),
         lastName: new FormControl(''
         ,[Validators.required,Validators.minLength(2),Luv2ShopValidators.notOnlyWhiteSpace]),
-        email: new FormControl('',
+        email: new FormControl(theEmail,
         [Validators.required, 
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),])
       }),
